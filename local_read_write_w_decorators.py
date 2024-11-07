@@ -6,15 +6,6 @@ This ETL DAG is designed to read a file from the `///` directory.
 from airflow.utils.dates import days_ago
 from airflow.decorators import dag, task
 
-import shutil
-from pathlib import Path
-import pandas as pd
-
-
-class LocalRwDagError(Exception):
-    pass
-
-
 default_args = {
     "owner": "airflow",
     "schedule_interval": None,
@@ -38,6 +29,10 @@ def local_read_write_dag():
     def _print_test_phrase(test_phrase):
 
         print(test_phrase)
+
+    # Invoke tasks and set dependencies
+    test_phrase = _print_hello()
+    _print_test_phrase(test_phrase)
 
 
 dag = local_read_write_dag()
